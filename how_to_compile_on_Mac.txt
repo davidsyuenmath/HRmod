@@ -1,0 +1,23 @@
+Notes from Jerry's laptop:
+
+g++ BPunified.cpp -o allBP.out -g -O0 -I/sw/include
+-I/usr/local/include/flint -lflint -lgmp
+
+Note: The include of the complex multi precision library may need to
+be commented
+out, to:
+
+//#include <mpc.h>
+
+-g is for enabling debugging
+You can try removing that and see if that speeds up the program.
+I think I used this on a server to debug a memory leak.
+-O0 is setting the optimization level to 0
+I think I also needed this to debug the memory leak. So you can also remove
+this to see if the program will run faster.
+
+So:
+
+g++ BPunified.cpp -o allBP.out -I/sw/include
+-I/usr/local/include/flint -lflint -lgmp
+

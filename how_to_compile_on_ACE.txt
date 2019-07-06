@@ -1,0 +1,69 @@
+Hello David,
+
+Okay, I've downloaded and complied all the nuts and bolts I think you would need to avoid version conflicts.
+
+In the directory /app/flint directory are the following
+"flint-2.5.2/local" a new compilation of flint from all of the following
+"libraries/gmp-6.1.2"
+"libraries/mpfr-3.1.5"
+"libraries/mpir-2.7.3"
+Each of these three has a "local" directory into which all code was built so as not to overwrite the existing installations.  All were compiled w.r.t one another (not the existing libraries) and all should have c++ support enabled.
+
+So, if you point LD to the appropriate directories for your code, you should be set with the latest versions.  I've also requested renewal of our intel compiler license, which can make much faster executables in some cases.  So, if this setup works, we can recompile with ICC/I++ to get on the bleeding edge.
+
+Let me know how these new options work.
+
+g++ -g -O0 -o BPunified -I/usr/local/include/flint -L/usr/local/lib BPunified.cpp -lflint -lgmp -L/usr/local/lib
+
+g++ -g -O0 -o BPunified -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPunified.cpp -lflint -lgmp
+
+
+LD_LIBRARY_PATH=/app/flint/libraries/mpfr-3.1.5/local/bin/lib:/app/flint/libraries/gmp-6.1.2/local/bin/lib:/app/flint/flint-2.5.2/local/lib:$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH
+
+g++ -g -O0 -o BPHeckeRestriction -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPHeckeRestriction.cpp -lflint -lgmp
+
+g++ -g -O0 -o BPHeckeRestriction -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPHeckeRestriction.cpp -lflint -lgmp
+
+
+g++ -g -O0 -o BPHeckeRestriction -I/usr/local/include/flint -L/usr/local/lib BPHeckeRestriction.cpp -lflint -lgmp -L/usr/local/lib
+
+LD_LIBRARY_PATH=/app/flint/libraries/mpfr-3.1.5/local/bin/lib:/app/flint/libraries/gmp-6.1.2/local/bin/lib:/app/flint/flint-2.5.2/local/
+lib:$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH
+
+g++ -g -O0 -o BPHeckeRestriction -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/a
+pp/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint
+/libraries/gmp-6.1.2/local/bin/lib BPHeckeRestriction.cpp -lflint -lgmp
+
+g++ -g -o TwHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5
+.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1
+.2/local/bin/lib TwHR.cpp -lflint -lgmp
+
+g++ -g -O0 -o BPHeckeRestriction -I/usr/local/include/flint -L/usr/local/lib BPHeckeRestriction.cpp -lflint -lgmp -L/usr/local/lib
+
+g++ -g -O0 -o BPHR -I/usr/local/include/flint -L/usr/local/lib BPHR.cpp -lflint -lgmp -L/usr/local/lib
+
+g++ -g -O0 -o TwHR -I/usr/local/include/flint -L/usr/local/lib TwHR.cpp -lflint -lgmp -L/usr/local/lib
+
+g++ -o BPHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/ BPHR.cpp -lflint -lgmp -L/usr/local/lib
+
+g++ -o GQHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/
+local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/
+local/bin/lib GQHR.cpp -lflint -lgmp
+
+g++ -o GQHRTp2 -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5
+.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1
+.2/local/bin/lib GQHRTp2.cpp -lflint -lgmp
+
+20190706: The following compiles on ACE
+
+g++ -g -O0 -o BPHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPHR.cpp -lflint -lgmp
+
+
+
+
+
+

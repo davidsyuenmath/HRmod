@@ -31,7 +31,7 @@
 //#include "BPdataList.h"
 #include "SigObjectOldStyle.h"
 //#include "BPcheckCuspiness.h"
-#include "SingularPartList.h"
+//#include "SingularPartList.h"
 //#include "WeightTwelveBases.h"
 #include "QZWSeriesQ.h"
 #include "MySeriesTruncMod.h"

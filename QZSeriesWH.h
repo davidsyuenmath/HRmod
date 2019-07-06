@@ -137,7 +137,7 @@ class QZSeriesWH {
     void saveToFile(FILE *f);
     QZSeriesWH(FILE *f);
     //static QZSeriesWH* makeTBEcombo(ThetaBlockList *tbList, fmpz_t* combo, fmpz_t denom, int maxdegree);;
-    static QZSeriesWH* makeTBEcombo(ThetaBlockList *tbList, fmpz_t* combo, fmpz_t denom, int maxdegree);;
+    static QZSeriesWH* makeTBEcombo(ThetaBlockList *tbList, fmpz_t* combo, fmpz_t denom, int maxdegree);
 
     static vector<slong> getDivisors(slong a);
     static slong GCDL(slong a, slong b);
