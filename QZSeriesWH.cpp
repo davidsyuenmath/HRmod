@@ -1,5 +1,6 @@
 /***
   encodes a Weakly Holomorphic series in q,z.
+  20181220: Fixed ThetaBlockWithOps.
 ***/
 
 #include "QZSeriesWH.h"
@@ -516,11 +517,13 @@ QZSeriesWH* QZSeriesWH::ThetaBlockWithOps(int trunc0, int weight, vector<int> b)
     int numOps=b[0];
     int i;
     for(i=0;i<numOps;i++){
-        ops.push_back(b[i+1]);
+        ops.push_back(b[2*i+1]);
+        ops.push_back(b[2*i+2]);
     }
-    for(i=numOps+1;i<b.size();i++){
+    for(i=2*numOps+1;i<b.size();i++){
         d.push_back(b[i]);
     }
+    if(numOps==0){return ThetaBlock(trunc0, weight, d);}
     return ThetaBlockWithOps(trunc0, weight, d, ops);
 }
 QZSeriesWH* QZSeriesWH::ThetaBlockWithOps(int trunc0, int weight, vector<int> d, vector<int> heckeOps){
@@ -590,6 +593,12 @@ QZSeriesWH* QZSeriesWH::ThetaBlockWithOps(int trunc0, int weight, vector<int> d,
     return ans;
 }
 void QZSeriesWH::getFC_noreduce(fmpz_t fc, slong n, slong r){
+    //cout<<"What???\n\n";
+    //cout<<"n="<<n<<"\n";
+    //cout<<"r="<<r<<"\n";
+    //cout.flush();//sleep(1);
+    //cout<<"qMinExp="<<qMinExp<<"\n";
+    //cout<<"What??????\n\n";
     //cout<<"getFC_noreduce: (n,r, qMinExp) = ("<<n<<","<<r<<","<<qMinExp<<")\n";
     slong qexp = n - qMinExp;
     if(qexp<0){
@@ -598,6 +607,7 @@ void QZSeriesWH::getFC_noreduce(fmpz_t fc, slong n, slong r){
                 if(printGG==-24){cout<<"GGd1 diagMat(0,0): "<<fmpz_get_str(NULL,10,fmpz_mat_entry(diagMat,0,0))<<"\n";}
 
     if(qexp>qzs->trunc){
+        cout<<"getFC_noreduce: (n,r, qMinExp) = ("<<n<<","<<r<<","<<qMinExp<<")\n";
         cout<<"ERROR 515445u7 in getFC_noreduce: insufficient length.\n"
         <<"(n, qMinExp, trunc) = ("<<n<<","<<qMinExp<<","<<qzs->trunc<<"). Abort.\n";
         exit(1);

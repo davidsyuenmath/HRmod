@@ -4,11 +4,12 @@ MyRepnumList::MyRepnumList(int a0, int b0, int c0, int lev0, int uptoDot0, int m
     initBasics(a0,b0,c0,lev0,uptoDot0,mindet0);
 }
 void MyRepnumList::initBasics(int a0, int b0, int c0, int lev0, int uptoDot0, int mindet0){
-
+//This initializes to where det is at least - |mindet0|. Weird!!
     a=a0;b=b0;c=c0;lev=lev0;uptoDot=uptoDot0,mindet=mindet0; delta=abs(mindet);
     jfCoeffsSize=0; jfCoeffs=NULL; LrootPowersLen=0; LrootPowers=NULL;
     int i; long long J=uptoDot, nmax=uptoDot; fmpz_init(singExp);
     n.clear(); r.clear(); m.clear(); reducedmn.clear(); reducedr.clear();
+    trList.clear();
     nmodL.clear(); rmodL.clear(); mmodL.clear(); nEff.clear(); rEff.clear();
     mEff.clear(); trEff.clear(); reducedmnEff.clear(); reducedrEff.clear();
     long long x,y,z,xmin,xmax,ymin,ymax,zmax;
@@ -41,6 +42,13 @@ void MyRepnumList::initBasics(int a0, int b0, int c0, int lev0, int uptoDot0, in
             //cout<<"x:"<<xmin<<","<<xmax<<"\n";
             for(x=xmin;x<=xmax;x+=1){
                 tr = (a* x +  b*y + c*lev*z);
+    if(0)if(tr<0){
+      cout<<"x,y,z,lev,a,b,c,uptoDot,mindet,sq,ymin,ymax,xmin,xmax="<<
+       x<<","<<y<<","<<z<<","<<lev<<","<<a<<","<<b<<","<<c<<","<<
+       uptoDot<<","<<mindet<<
+       ","<<sq<<","<<ymin<<","<<ymax<<","<<xmin<<","<<xmax<<"\n";
+      exit(0);
+    }
                 if(tr<=uptoDot){
                     n.push_back(x);
                     r.push_back(y);
@@ -65,12 +73,14 @@ void MyRepnumList::initBasics(int a0, int b0, int c0, int lev0, int uptoDot0, in
 
 MyRepnumList:: ~MyRepnumList(){
     int i;//destructor
+    //cout<<"HERE D1\n";
     if(jfCoeffsSize>0){
         for(i=0;i<jfCoeffsSize;i++){
             fmpz_clear(jfCoeffs[i]);
         }
         delete[] jfCoeffs;
     }
+    //cout<<"HERE D20\n";
     if(LrootPowersLen>0){
         for(i=0;i<LrootPowersLen;i++){
             fmpz_clear(LrootPowers[i]);
@@ -79,7 +89,9 @@ MyRepnumList:: ~MyRepnumList(){
         delete[] LrootPowers;
         delete[] negPowers;
     }
+    //cout<<"HERE D30\n";
     fmpz_clear(singExp);
+    //cout<<"HERE D40\n";
 }
 long long MyRepnumList::myfloor(double x){
   int ans = (int)floor(x);
@@ -433,30 +445,50 @@ MySeriesTruncMod* MyRepnumList::restrictGrit(QZSeriesWH* jf, long long BAa, long
                                long long Ldenom, fmpz_t modn, fmpz_t* rootPowers, int uptoN, int weight){
     //if((BAa==0)&&(BAb==0)&&(BAc==0))return restrictGritNoCharacter(jf,Ldenom,modn,uptoN,weight);
     //
+    //cout<<"HERE 1\n";
     if(uptoN>uptoDot){
         initBasics(a,b,c,lev,uptoN,mindet);
         //cout<<"ERROR 4328gdgsd uptoN>uptoDot in restrictGrit ("<<uptoN<<">"<<uptoDot<<"). Abort.\n";
         //exit(1);
     } //[So make a new one!!!]
     BAa=BAa%Ldenom;    BAb=BAb%Ldenom;    BAc=BAc%Ldenom;
+    //cout<<"HERE 2\n";
     int i;
     slong e;
     fmpz_t fc;fmpz_init(fc);
     MySeriesTruncMod* ans = new MySeriesTruncMod(modn, uptoN,0);
     //cout<<"Starting restrictGrit.\n";
+    //cout<<"HERE 3\n";
+    //cout<<"n.size()="<<n.size()<<"\n";
+    //cout<<"uptoN="<<uptoN<<"\n";
     for(i=0;i<n.size();i++)if(trList[i]<=uptoN){
         e=(((BAa*n[i]+BAb*r[i]+BAc*m[i]*lev)%Ldenom)+Ldenom)%Ldenom;
         //add oneLroot^e * GritFC(n,r,m) *q^trList
+        //cout<<"e="<<e<<"\n";
         //cout<<i<<" Getting getFCGrit.\n";
         //cout<<"nrm size="<<n.size()<<".\n";
         //cout<<"(n,r,m)=("<<n[i]<<","<<r[i]<<","<<m[i]<<")\n";
+        //cout<<"(a,b,c,uptoDot)=("<<a<<","<<b<<","<<c<<","<<uptoDot<<")\n";
+        //cout<<"(n,r,m,weight,lev)=("<<n[i]<<","<<r[i]<<","<<m[i]<<","<<weight<<","<<lev<<")\n";
+        //cout<<jf->getString();cout<<"\n";
         jf->getFCGrit(fc,n[i],r[i],m[i],weight,lev);
         //cout<<"multiply.\n";
+        //cout<<"fc=";fmpz_print(fc);cout<<", rootPowers[e]=";fmpz_print(rootPowers[e]);cout<<"\n";
         fmpz_mul(fc,fc,rootPowers[e]);
+        //cout<<"fc=";fmpz_print(fc);cout<<"\n";
         //cout<<"updateCoeffAdd.\n";
-        ans->updateCoeffAdd(fc, trList[i]);
+        //cout<<"a,b,c,lev="<<a<<","<<b<<","<<c<<","<<lev<<"\n";
+        //cout<<"n[i]="<<n[i]<<"\n";
+        //cout<<"r[i]="<<r[i]<<"\n";
+        //cout<<"m[i]="<<m[i]<<"\n";
+        //cout<<"trList[i]="<<trList[i]<<"\n";
+        //cout<<"rootPowers["<<jj<<"]=";fmpz_print(rootPowers[e]);cout<<"\n";
+        //cout.flush();
+        if(!fmpz_is_zero(fc)){ans->updateCoeffAdd(fc, trList[i]);}
+        //cout<<"HERE 3.5\n";
     }
     //cout<<"Made restrictGrit.\n";
+    //cout<<"HERE 4\n";
 
     fmpz_clear(fc);
     return ans;
