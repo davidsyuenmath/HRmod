@@ -1,0 +1,27 @@
+2
+277
+
+554 233 98
+3
+
+1
+5 1021 589
+19 1103 17
+
+73 394931 9667
+
+61 231923 2440
+
+59 10267 682
+5 1021 589
+
+--------------------------
+weight
+level
+
+Restriction matrix
+Desired up to dot product with restriction matrix
+
+numHecke
+list of  heckeL  modn  Lroot
+

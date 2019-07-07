@@ -152,6 +152,9 @@ MySeriesTruncMod* MySeriesTruncMod::scalarMultiplity(MySeriesTruncMod* g, fmpz_t
     fmpz_mod_poly_scalar_mul_fmpz(ans->p, g->p, a);
     return ans;
 }
+void MySeriesTruncMod::scalarMultiplyBy(fmpz_t a){
+    fmpz_mod_poly_scalar_mul_fmpz(p, p, a);
+}
 void MySeriesTruncMod::scalarMultiplityBy(fmpz_t a){
     fmpz_mod_poly_scalar_mul_fmpz(p, p, a);
 }

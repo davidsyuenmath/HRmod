@@ -1,0 +1,41 @@
+3
+525
+
+2625 644 158
+28
+
+5
+2 31 30 
+11 2971 1414 
+13 4889 3088 
+17 10711 8950 
+19 14593 6037 
+
+Yikes don't use bad primes!!!
+3 97 35 
+5 331 64 
+7 827 270 
+1
+2 31 30
+
+1
+5 1021 589
+19 1103 17
+
+73 394931 9667
+
+61 231923 2440
+
+59 10267 682
+5 1021 589
+
+--------------------------
+weight
+level
+
+Restriction matrix
+Desired up to dot product with restriction matrix
+
+numHecke
+list of  heckeL  modn  Lroot
+

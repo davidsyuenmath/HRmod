@@ -60,6 +60,7 @@ class MySeriesTruncMod {
     void addAndAdjustTrunc(MySeriesTruncMod* g);
     static MySeriesTruncMod* scalarMultiplity(MySeriesTruncMod* g, fmpz_t a);
     void scalarMultiplityBy(fmpz_t a);
+    void scalarMultiplyBy(fmpz_t a);
     static MySeriesTruncMod* multiply(MySeriesTruncMod* f, MySeriesTruncMod* g);
     void multiplyBy(MySeriesTruncMod* g);
     static MySeriesTruncMod* pow(MySeriesTruncMod* f, slong e);

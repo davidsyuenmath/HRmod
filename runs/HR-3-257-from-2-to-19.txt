@@ -1,0 +1,28 @@
+3
+257
+
+257 16 1
+2
+
+8
+2 31 30 
+3 97 35 
+5 331 64 
+7 827 270 
+11 2971 1414 
+13 4889 3088 
+17 10711 8950 
+19 14593 6037 
+
+Comments below ignored.
+Beware of bad primes.
+--------------------------
+weight
+level
+
+Restriction matrix
+Desired up to dot product with restriction matrix
+
+numHecke
+list of  heckeL  modn  Lroot
+

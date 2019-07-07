@@ -1,0 +1,32 @@
+3
+257
+
+257 16 1
+2
+
+10
+103 2209763 23317
+107 2477051 22437
+109 2615783 12639
+113 2913367 24293
+127 4129787 35715
+131 4533649 33521
+137 5181067 7667
+139 5413217 57987
+149 6661493 88702
+151 6932411 131338
+
+
+
+Comments below ignored.
+Beware of bad primes.
+--------------------------
+weight
+level
+
+Restriction matrix
+Desired up to dot product with restriction matrix
+
+numHecke
+list of  heckeL  modn  Lroot
+

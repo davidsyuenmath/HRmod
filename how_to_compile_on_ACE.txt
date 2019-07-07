@@ -62,6 +62,8 @@ g++ -o GQHRTp2 -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/l
 
 g++ -g -O0 -o BPHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPHR.cpp -lflint -lgmp
 
+g++ -g -O0 -o GQHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib GQHR.cpp -lflint -lgmp
+
 
 
 

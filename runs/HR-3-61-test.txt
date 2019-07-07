@@ -1,0 +1,27 @@
+3
+61
+
+122 11 1
+2
+
+1
+19 1103 17
+
+73 394931 9667
+
+61 231923 2440
+
+59 10267 682
+5 1021 589
+
+--------------------------
+weight
+level
+
+Restriction matrix
+Desired up to dot product with restriction matrix
+
+output file code that will part of output filename
+numHecke
+list of  heckeL  modn  Lroot
+
