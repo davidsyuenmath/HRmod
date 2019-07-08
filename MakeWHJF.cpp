@@ -89,9 +89,9 @@ int main(int argc, char* argv[])
         cout<<"uptoN by default is read from the file. Use 0 for default.\n";
         cout<<"saveFileName from file is used by default.\n";
         cout<<"Info about this machine:\n";
-        printf("sizeof(slong) = %d;\n", sizeof(slong));
-        printf("sizeof(int) = %d;\n", sizeof(int));
-        printf("sizeof(long long) = %d;\n", sizeof(long long));
+        printf("sizeof(slong) = %lu;\n", sizeof(slong));
+        printf("sizeof(int) = %lu;\n", sizeof(int));
+        printf("sizeof(long long) = %lu;\n", sizeof(long long));
 
     return 1;
     }

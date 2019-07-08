@@ -252,14 +252,14 @@ void SigObjectOldStyle ::ReduceUPart(int a, int b, int c, int* v){
     // if(u[0]==0){v[0]=0;v[1]=1;return;}
     //else if(u[1]<w[1]){w[1]=u[1];}
   }
-  if((a==c)){
+  if(a==c){
     u[0]=y;u[1]=x;
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];}
     //if(u[0]==0){v[0]=0;v[1]=1;return;}
     //else if(u[1]<w[1]){w[1]=u[1];}
   }
-  if((a==2*b)){
+  if(a==2*b){
     u[0]=(x+y);u[1]=(p-y);
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];}
@@ -280,7 +280,7 @@ void SigObjectOldStyle ::ReduceUPart(int a, int b, int c, int* v){
     //if(u[0]==0){v[0]=0;v[1]=1;return;}
     //else if(u[1]<w[1]){w[1]=u[1];}
   }
-  if((c==2*b)){
+  if(c==2*b){
     u[0]=p-x;u[1]=x+y;
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];}
@@ -704,12 +704,12 @@ void SigObjectOldStyle ::ReduceUPart(int a, int b, int c, int* v, long long &pm)
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];bestpm=pm;}
   }
-  if((a==c)){
+  if(a==c){
     u[0]=y;u[1]=x;
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];bestpm=-pm;}
   }
-  if((a==2*b)){
+  if(a==2*b){
     u[0]=(x+y);u[1]=(p-y);
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];bestpm=-pm;}
@@ -724,7 +724,7 @@ void SigObjectOldStyle ::ReduceUPart(int a, int b, int c, int* v, long long &pm)
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];bestpm=pm;}
   }
-  if((c==2*b)){
+  if(c==2*b){
     u[0]=p-x;u[1]=x+y;
     P1Reduce(u);
     if((u[0]<w[0])||((u[0]==w[0])&&(u[1]<w[1]))){w[0]=u[0];w[1]=u[1];bestpm=-pm;}

@@ -14,7 +14,7 @@
 #include <gmp.h>
 #include <gmpxx.h>
 #include <mpfr.h>
-#include <mpc.h>
+//#include <mpc.h>
 #include <flint.h>
 #include <flintxx.h>
 #include <fmpz.h>
@@ -196,9 +196,9 @@ int main(int argc, char* argv[])
         cout<<"Output progress every printEvery. Use 0 for default.\n";
         cout<<"saveFileName from file is used by default.\n";
         cout<<"Info about this machine:\n";
-        printf("sizeof(slong) = %d;\n", sizeof(slong));
-        printf("sizeof(int) = %d;\n", sizeof(int));
-        printf("sizeof(long long) = %d;\n", sizeof(long long));
+        printf("sizeof(slong) = %lu;\n", sizeof(slong));
+        printf("sizeof(int) = %lu;\n", sizeof(int));
+        printf("sizeof(long long) = %lu;\n", sizeof(long long));
 
     return 1;
     }
@@ -498,7 +498,7 @@ int main(int argc, char* argv[])
                 //No expand
                 partialsum->addBy(oneqs);
                 if((beginCtr>0)&&(endCtr==beginCtr)){
-                    fprintf(OUTFILE,"abc={%d,%d,%d};\n",a,b);
+                    fprintf(OUTFILE,"abc={%d,%d};\n",a,b);
                 }
                 delete oneqs;
             }
@@ -549,7 +549,7 @@ int main(int argc, char* argv[])
                }
                 partialsum->addBy(oneqs);
                 if((beginCtr>0)&&(endCtr==beginCtr)){
-                    fprintf(OUTFILE,"abc={%d,%d,%d};\n",a,b);
+                    fprintf(OUTFILE,"abc={%d,%d};\n",a,b);
                 }
                 delete oneqs;
             }
@@ -579,9 +579,9 @@ int main(int argc, char* argv[])
         fprintf(OUTFILE, "L2root=%d;\n", L2root);
         fprintf(OUTFILE, "Lroot=%d;\n", Lroot);
         fprintf(OUTFILE, "numCosets=%d;\n", ctr);
-        fprintf(OUTFILE, "sizeofslong = %d;\n", sizeof(slong));
-        fprintf(OUTFILE, "sizeofint = %d;\n", sizeof(int));
-        fprintf(OUTFILE, "sizeoflonglong = %d;\n", sizeof(long long));
+        fprintf(OUTFILE, "sizeofslong = %lu;\n", sizeof(slong));
+        fprintf(OUTFILE, "sizeofint = %lu;\n", sizeof(int));
+        fprintf(OUTFILE, "sizeoflonglong = %lu;\n", sizeof(long long));
 
         fprintf(OUTFILE,"totqs = (");totqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");
         fprintf(OUTFILE, "doSomething;\nseparator=nothing;\n\n");

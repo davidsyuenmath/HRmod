@@ -126,9 +126,9 @@ int main(int argc, char* argv[])
         cout<<"Output progress every printEvery. Use 0 for default.\n";
         cout<<"saveFileName from file is used by default.\n";
         cout<<"Info about this machine:\n";
-        printf("sizeof(slong) = %d;\n", sizeof(slong));
-        printf("sizeof(int) = %d;\n", sizeof(int));
-        printf("sizeof(long long) = %d;\n", sizeof(long long));
+        printf("sizeof(slong) = %lu;\n", sizeof(slong));
+        printf("sizeof(int) = %lu;\n", sizeof(int));
+        printf("sizeof(long long) = %lu;\n", sizeof(long long));
 
     return 1;
     }
@@ -308,7 +308,7 @@ int main(int argc, char* argv[])
             phifqs = RL0->oneBPCosetRestrictionPrepped(0,0,0, 1, modn, 1, uptoN+fmpz_get_si(RL0->singExp));
             cout<<"Made phifqs = ";phifqs->printstdout();cout<<"\n";
             fprintf(OUTFILE, "L=%d;\n", L);
-            fprintf(OUTFILE, "modn=%d;\n", fmpz_get_si(modn));
+            fprintf(OUTFILE, "modn=%ld;\n", fmpz_get_si(modn));
             fprintf(OUTFILE, "Lroot=%d;\n", Lroot);
             fprintf(OUTFILE,"phifqs = ");phifqs->printFile(OUTFILE);fprintf(OUTFILE,";\n");
             fprintf(OUTFILE, "domeSomethingphifqs;\nseparator=nothing;\n\n");
@@ -433,7 +433,7 @@ int main(int argc, char* argv[])
                 //No expand
                 partialsum->addBy(oneqs);
                 if((beginCtr>0)&&(endCtr==beginCtr)){
-                    fprintf(OUTFILE,"abc={%d,%d,%d};\n",a,b);
+                    fprintf(OUTFILE,"abc={%d,%d};\n",a,b);
                 }
                 delete oneqs;
             }
@@ -478,7 +478,7 @@ int main(int argc, char* argv[])
                }
                 partialsum->addBy(oneqs);
                 if((beginCtr>0)&&(endCtr==beginCtr)){
-                    fprintf(OUTFILE,"abc={%d,%d,%d};\n",a,b);
+                    fprintf(OUTFILE,"abc={%d,%d};\n",a,b);
                 }
                 delete oneqs;
             }
@@ -507,9 +507,9 @@ int main(int argc, char* argv[])
         fprintf(OUTFILE, ";\n");
         fprintf(OUTFILE, "L2root=%d;\n", L2root);
         fprintf(OUTFILE, "Lroot=%d;\n", Lroot);
-        fprintf(OUTFILE, "sizeofslong = %d;\n", sizeof(slong));
-        fprintf(OUTFILE, "sizeofint = %d;\n", sizeof(int));
-        fprintf(OUTFILE, "sizeoflonglong = %d;\n", sizeof(long long));
+        fprintf(OUTFILE, "sizeofslong = %lu;\n", sizeof(slong));
+        fprintf(OUTFILE, "sizeofint = %lu;\n", sizeof(int));
+        fprintf(OUTFILE, "sizeoflonglong = %lu;\n", sizeof(long long));
 
         fprintf(OUTFILE,"totqs = (");totqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");
         fprintf(OUTFILE, "domeSomething;\nseparator=nothing;\n\n");

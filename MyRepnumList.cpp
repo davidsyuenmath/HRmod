@@ -130,7 +130,7 @@ void MyRepnumList::prepEfficientSpecial(int L0, QZSeriesWH *jf, int Lroot, fmpz_
 void MyRepnumList::prepEfficientSpecialGeneralPowersLen(int L0, QZSeriesWH *jf,
                                                         int Lroot, fmpz_t modn, int powersLen){
 
-    if(0){"Assumes jf is at worst -1/q +...";}
+//    if(0){"Assumes jf is at worst -1/q +...";}
     int i;
     L=L0;
     fmpz_t coeff; fmpz_init(coeff);
@@ -366,26 +366,26 @@ MySeriesTruncMod* MyRepnumList::oneBPCosetRestrictionPrepped(long long BAa, long
 }
 
 void MyRepnumList::fprintfDiagnostics(FILE* F, int uptoN){
-    fprintf(F, "BPA=%ld;\n", BPA);
-    fprintf(F, "BPB=%ld;\n", BPB);
-    fprintf(F, "BPC=%ld;\n", BPC);
-    fprintf(F, "a=%ld;\n", a);
-    fprintf(F, "b=%ld;\n", b);
-    fprintf(F, "c=%ld;\n", c);
-    fprintf(F, "L=%ld;\n", L);
-    fprintf(F, "singExp=%ld;\n", singExp);
+    fprintf(F, "BPA=%lld;\n", BPA);
+    fprintf(F, "BPB=%lld;\n", BPB);
+    fprintf(F, "BPC=%lld;\n", BPC);
+    fprintf(F, "a=%lld;\n", a);
+    fprintf(F, "b=%lld;\n", b);
+    fprintf(F, "c=%lld;\n", c);
+    fprintf(F, "L=%lld;\n", L);
+    fprintf(F, "singExp=%ld;\n", fmpz_get_si(singExp));
     int i;
     fprintf(F, "data={\n");
     for(i=0;i<reducedmnEff.size();i++)if(trEff[i]<=uptoN){
         if(i>0){fprintf(F, ",\n");}
         //nEff, rEff, mEff, trEff, reducedmnEff, reducedrEff, jfCoeff
         fprintf(F, "{");
-        fprintf(F, "%ld,", nEff[i]);
-        fprintf(F, "%ld,", rEff[i]);
-        fprintf(F, "%ld,", mEff[i]);
-        fprintf(F, "%ld,", trEff[i]);
-        fprintf(F, "%ld,", reducedmnEff[i]);
-        fprintf(F, "%ld,", reducedrEff[i]);
+        fprintf(F, "%lld,", nEff[i]);
+        fprintf(F, "%lld,", rEff[i]);
+        fprintf(F, "%lld,", mEff[i]);
+        fprintf(F, "%lld,", trEff[i]);
+        fprintf(F, "%lld,", reducedmnEff[i]);
+        fprintf(F, "%lld,", reducedrEff[i]);
         fmpz_fprint(F, jfCoeffs[i]);
         fprintf(F,"}");
     }
@@ -433,9 +433,9 @@ void MyRepnumList::printAbstractRestrictionToFile(FILE* OUTFILE, SigObjectOldSty
         }
         cout<<"(n,r,m, tr, ind )=("<<n[i]<<","<<r[i]<<","<<m[i]<<","<<trList[i]<<","<<ind<<")\n";
         if(pm==1){
-            fprintf(OUTFILE, "za[%d]*q^%d\n",ind,trList[i]);
+            fprintf(OUTFILE, "za[%d]*q^%lld\n",ind,trList[i]);
         }else{
-            fprintf(OUTFILE, "(-za[%d])*q^%d\n",ind,trList[i]);
+            fprintf(OUTFILE, "(-za[%d])*q^%lld\n",ind,trList[i]);
         }
     }
     fprintf(OUTFILE,");\n");
