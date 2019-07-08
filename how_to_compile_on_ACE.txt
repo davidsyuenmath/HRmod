@@ -69,5 +69,6 @@ g++ -g -O0 -o BPTp2HR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/
 g++ -g -O0 -o GQTp2HR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib GQTp2HR.cpp -lflint -lgmp
 
 
+g++ -g -O0 -o TwHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib TwHR.cpp -lflint -lgmp
 
 
