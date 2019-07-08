@@ -22,41 +22,12 @@ LD_LIBRARY_PATH=/app/flint/libraries/mpfr-3.1.5/local/bin/lib:/app/flint/librari
 
 export LD_LIBRARY_PATH
 
-g++ -g -O0 -o BPHeckeRestriction -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPHeckeRestriction.cpp -lflint -lgmp
 
-g++ -g -O0 -o BPHeckeRestriction -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib BPHeckeRestriction.cpp -lflint -lgmp
-
-
-g++ -g -O0 -o BPHeckeRestriction -I/usr/local/include/flint -L/usr/local/lib BPHeckeRestriction.cpp -lflint -lgmp -L/usr/local/lib
-
-LD_LIBRARY_PATH=/app/flint/libraries/mpfr-3.1.5/local/bin/lib:/app/flint/libraries/gmp-6.1.2/local/bin/lib:/app/flint/flint-2.5.2/local/
-lib:$LD_LIBRARY_PATH
+LD_LIBRARY_PATH=/app/flint/libraries/mpfr-3.1.5/local/bin/lib:/app/flint/libraries/gmp-6.1.2/local/bin/lib:/app/flint/flint-2.5.2/local/lib:$LD_LIBRARY_PATH
 
 export LD_LIBRARY_PATH
 
-g++ -g -O0 -o BPHeckeRestriction -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/a
-pp/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint
-/libraries/gmp-6.1.2/local/bin/lib BPHeckeRestriction.cpp -lflint -lgmp
 
-g++ -g -o TwHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5
-.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1
-.2/local/bin/lib TwHR.cpp -lflint -lgmp
-
-g++ -g -O0 -o BPHeckeRestriction -I/usr/local/include/flint -L/usr/local/lib BPHeckeRestriction.cpp -lflint -lgmp -L/usr/local/lib
-
-g++ -g -O0 -o BPHR -I/usr/local/include/flint -L/usr/local/lib BPHR.cpp -lflint -lgmp -L/usr/local/lib
-
-g++ -g -O0 -o TwHR -I/usr/local/include/flint -L/usr/local/lib TwHR.cpp -lflint -lgmp -L/usr/local/lib
-
-g++ -o BPHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/ BPHR.cpp -lflint -lgmp -L/usr/local/lib
-
-g++ -o GQHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/
-local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/
-local/bin/lib GQHR.cpp -lflint -lgmp
-
-g++ -o GQHRTp2 -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5
-.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1
-.2/local/bin/lib GQHRTp2.cpp -lflint -lgmp
 
 20190706: The following compiles on ACE
 
@@ -70,5 +41,11 @@ g++ -g -O0 -o GQTp2HR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/
 
 
 g++ -g -O0 -o TwHR -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib TwHR.cpp -lflint -lgmp
+
+g++ -g -O0 -o MakeWHJF -I/app/flint/libraries/gmp-6.1.2/local/bin/include -I/app/flint/libraries/mpfr-3.1.5/local/include -I/app/flint/flint-2.5.2/local/include/flint -L/app/flint/flint-2.5.2/local/lib -L/app/flint/libraries/mpfr-3.1.5/local/bin/lib -L/app/flint/libraries/gmp-6.1.2/local/bin/lib MakeWHJF.cpp -lflint -lgmp
+
+
+
+
 
 
