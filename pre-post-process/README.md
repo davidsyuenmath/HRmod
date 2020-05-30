@@ -29,7 +29,7 @@
 * __IMPORTANT__: Note the increase in size of boundTp2 when the weight is 2.
 * The format of the "HR" is as follows
 
-[code]
+```
 weight
 level
 a b c
@@ -38,7 +38,7 @@ numHeckeToBeDone
 p modn root root^p
 p modn root root^p
 ...
-[/code]
+```
 
 * Example:
 3
