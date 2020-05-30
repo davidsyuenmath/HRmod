@@ -16,7 +16,7 @@
     |a_{1,p^2}| <= p^{2k-6}(1+p)(1+p^2)p.
     
 * For simplicity, denote the righthand side as boundTp2 = p^{2k-6}(1+p)(1+p^2)p.
-* Find a prime _modn_ and a number _root_ such that:
+* For each p where you wish to compute T_1(p^2), find a prime _modn_ and a number _root_ such that:
 
     modn > 2 * boundTp2
     
