@@ -41,6 +41,7 @@ p modn root root^p
 ```
 
 * Example:
+```
 3
 61
 122 11 1
@@ -59,7 +60,9 @@ list of  heckeL  modn  L2root Lroot
 where L2root^(heckeL * heckeL) modn = 1
 and L2root^heckeL = Lroot.
 This redundancy is so that you can be sure that Lroot != 1.
+```
 
+* Remark: A requirement is that L^2 | (modn-1).  A useful Mathematica command is PrimitiveRoot.
 
 ### How to post-process output file
 * Same as post-processing output file of GQHR _except when weight is 2_
