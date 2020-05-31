@@ -1,6 +1,22 @@
 ## GQHR
 ### Format of input files
 * The GritQuo input file describes the Gritsenko quotient.
+```
+weight
+
+level
+
+numJFs
+JFlist (entrynum  type  weight  level  power of eta  length  numHeckeOps HeckeOp
+s d1 ... dlength)
+
+number of numerator terms
+numertermlist (coefficient  num JFs  JF indices)
+
+number of denominator terms
+denomtermlist (coefficient  num JFs  JF indices)
+```
+
 * The HR input file describes the restriction modular curve and the numbers needed to calculation each eigenvalue.
 * To be written
 
