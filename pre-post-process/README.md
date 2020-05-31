@@ -39,6 +39,7 @@ p  modn  root
 p  modn  root
 ...
 ```
+* Remark: A requirement is that L^2 | (modn-1).  A useful Mathematica command is PrimitiveRoot.
 
 ### How to post-process output file
 * Set the Mathematica function:
@@ -145,3 +146,11 @@ For[i = 1, i <= Length[pList2], i++,
  ];
  ```
 
+## BPHR
+* To be written
+
+## BPHRTp2
+* To be written
+
+## TwHR
+* To be written
