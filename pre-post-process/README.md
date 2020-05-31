@@ -7,8 +7,7 @@ weight
 level
 
 numJFs
-JFlist (entrynum  type  weight  level  power of eta  length  numHeckeOps HeckeOp
-s d1 ... dlength)
+JFlist (entrynum  type  weight  level  power of eta  length  numHeckeOps HeckeOps d1 ... dlength)
 
 number of numerator terms
 numertermlist (coefficient  num JFs  JF indices)
@@ -18,10 +17,54 @@ denomtermlist (coefficient  num JFs  JF indices)
 ```
 
 * The HR input file describes the restriction modular curve and the numbers needed to calculation each eigenvalue.
-* To be written
+* By theorem (see paper "On the paramodularity of typical abelian surfaces"), we have a bound on the T_1(p^2)-eigenvalue in weight k:
+
+    |a_p| <= p^{k-3}(1+p)(1+p^2).
+    
+* For simplicity, denote the righthand side as boundTp = p^{k-3}(1+p)(1+p^2).
+* For each p where you wish to compute T(p), find a prime _modn_ and a number _root_ such that:
+
+    modn > 2 * boundTp
+    root^p = 1 mod modn (and root != 1)
+    
+```
+weight
+level
+
+a b c (restriction matrix)
+uptoDot
+
+number of Hecke operators
+p  modn  root
+p  modn  root
+...
+```
 
 ### How to post-process output file
-* To be written
+* Set the Mathematica function:
+```
+pList = {};Clear[myInfo,q];
+domeSomething := (
+   myInfo[L] = {modn, origqs, totqs};
+   AppendTo[pList, L];
+   );
+```
+* Then read in the output file.
+* Then compute the eigenvalues.
+```
+resList = {}; Clear[TpvalHash];
+For[i = 1, i <= Length[pList], i++,
+ pp = pList[[i]];
+ {nnn, origf, Tpf} = myInfo[pp];
+ Tpval = Mod[Coefficient[Tpf, q^(targetDot*pp)]*
+    PowerMod[Coefficient[origf, q^targetDot], -1, nnn],
+   nnn, -nnn/2
+   ];
+ TpvalHash[pp] = Tpval;
+ AppendTo[resList, {pp, Tpval, nnn}];
+ ]
+```
+* The eigenvalues are now in the list resList and also in the hash TpvalHash
 
 ## GQHRTp2
 ### Format of GritQuo input file
@@ -81,5 +124,24 @@ This redundancy is so that you can be sure that Lroot != 1.
 * Remark: A requirement is that L^2 | (modn-1).  A useful Mathematica command is PrimitiveRoot.
 
 ### How to post-process output file
-* Same as post-processing output file of GQHR _except when weight is 2_
-* When weight is 2, you must do the following. To be written.
+* Same as post-processing output file of GQHR _except when weight is 2_.  So do the following:
+```
+resListTp2 = {}; Clear[Tp2valHash];
+For[i = 1, i <= Length[pList2], i++,
+ pp = pList2[[i]];
+ {nnn, origf, Tpf} = myInfoTp2[pp];
+ If[weight == 2,
+  Tpval = Mod[pp^2*Coefficient[Tpf, q^(targetDot*pp*pp)]*
+      PowerMod[Coefficient[origf, q^targetDot], -1, nnn],
+     nnn, -nnn/2
+     ]/pp^2,
+  Tpval = Mod[Coefficient[Tpf, q^(targetDot*pp*pp)]*
+     PowerMod[Coefficient[origf, q^targetDot], -1, nnn],
+    nnn, -nnn/2
+    ]
+  ];
+ Tp2valHash[pp] = Tpval;
+ AppendTo[resListTp2, {pp, Tpval, nnn}]
+ ];
+ ```
+
