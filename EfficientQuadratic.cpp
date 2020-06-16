@@ -74,7 +74,7 @@ MySeriesTruncMod* EfficientQuadratic::evaluate(MySeriesTruncMod**qs){
         }
     }
     if(notYetStarted){
-        ans=new MySeriesTruncMod(qs[0]->modn,qs[0]->trunc-1);
+        ans=new MySeriesTruncMod(qs[0]->modn,qs[0]->getTrunc()-1);
     }
     return ans;
 

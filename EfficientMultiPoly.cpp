@@ -119,7 +119,7 @@ MySeriesTruncMod* EfficientMultiPoly::evaluate(MySeriesTruncMod**qs){
 MySeriesTruncMod* EfficientMultiPoly::evaluateNoFrills(MySeriesTruncMod**qs){
   int COMMENT=0;
   if(COMMENT){cout<<"HERE Eff 0: oneExisting="<<oneExisting<<"\n";}
-  MySeriesTruncMod*ans = new MySeriesTruncMod(qs[oneExisting]->modn, qs[oneExisting]->trunc-1);
+  MySeriesTruncMod*ans = new MySeriesTruncMod(qs[oneExisting]->modn, qs[oneExisting]->getTrunc()-1);
   int i,j;
   MySeriesTruncMod* tmpqs;
   if(COMMENT){cout<<"HERE Eff 1: indSize="<<indSize<<"\n";}

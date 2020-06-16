@@ -352,8 +352,8 @@ MySeriesTruncMod* MyRepnumList::oneBPCosetRestrictionPrepped(long long BAa, long
     //ans->multiplyByPower(negPart, -1);
     ans->multiplyByPowerOfQandChangeTrunc(fmpz_get_si(singExp));
     //cout<<"initial,final qAdjust, ans->trunc="<<BPA*a+BPB*b+BPC*c<<","<<qAdjust<<","<<ans->trunc<<".\n";
-    if(ans->trunc!=uptoN0+1){
-        cout<<"ERROR dgasdg2t5 in MyRepnumList oneBPCosetRestrictionPrepped ("<<ans->trunc<<","<<uptoN0<<").Abort.\n";
+    if(ans->getTrunc()!=uptoN0+1){
+        cout<<"ERROR dgasdg2t5 in MyRepnumList oneBPCosetRestrictionPrepped ("<<ans->getTrunc()<<","<<uptoN0<<").Abort.\n";
         exit(1);
     }
     e=(((BAa*BPA+BAb*BPB+BAc*BPC)%Ldenom)+Ldenom)%Ldenom;

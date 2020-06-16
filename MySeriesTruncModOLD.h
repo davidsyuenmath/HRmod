@@ -37,34 +37,24 @@ class MySeriesTruncMod {
   public:
     fmpz_mod_poly_t p;
     fmpz_t modn;
+    slong trunc;
     static int ulongMaxSetUp;
     static fmpz_t ulongmax;
     static int checkSameTrunc;
     int inSqrtQ;
-    int normalized;
-    slong len; //length of polynomial x^0 through x^(len-1)
-    slong van; //Vanishing order
-               //so degree of poly = van + len - 1.
-               //trunc = van + len
 
     MySeriesTruncMod(fmpz_t modn0, int upto);
     MySeriesTruncMod(int modn0, int upto);
     MySeriesTruncMod(fmpz_t modn0, int upto, int inSqrtQ);
     MySeriesTruncMod(int modn0, int upto, int intSqrtQ);
     MySeriesTruncMod(MySeriesTruncMod*f);
-    //static void checkOperands(MySeriesTruncMod *f, MySeriesTruncMod *g);
+    static void checkOperands(MySeriesTruncMod *f, MySeriesTruncMod *g);
     static void checkSameinSqrtQ(MySeriesTruncMod *f, MySeriesTruncMod *g);
     static MySeriesTruncMod* monicBinomial(fmpz_t modn0, int upto, fmpz_t oneCoeff, int e);  //Initializes to 1 + c*x^e
     int setMonicBinomialBPSpecial(fmpz_t oneCoeff, int e);
     static MySeriesTruncMod* monomial(fmpz_t modn0, int upto, fmpz_t oneCoeff, int e);  //Initializes to  c*x^e
 
     ~MySeriesTruncMod();
-    slong  getTrunc();
-    int couldBeZero();
-    int getVanishingOrder();
-    int getVanishingOrderNoSentinnel();
-    void normalize();
-    void getFullPoly(fmpz_mod_poly_t ansp);
     static MySeriesTruncMod* add(MySeriesTruncMod* f, MySeriesTruncMod* g);
     void addBy(MySeriesTruncMod* g);
     void addAndAdjustTrunc(MySeriesTruncMod* g);
@@ -97,6 +87,7 @@ class MySeriesTruncMod {
     static MySeriesTruncMod* divide(MySeriesTruncMod* f, MySeriesTruncMod* g);
     void divideBy(MySeriesTruncMod* g);
     MySeriesTruncMod* makeCopy();
+    int getVanishingOrder();
     void shift(int e);
 };
 
