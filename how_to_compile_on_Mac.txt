@@ -21,3 +21,12 @@ So:
 g++ BPunified.cpp -o allBP.out -I/sw/include
 -I/usr/local/include/flint -lflint -lgmp
 
+====  IF INSTALLING mpfr IS REQUIRED ====
+In a terminal window:
+> ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+> brew install mpfr
+If you get an error of the form:
+  dyld: Library not loaded: /usr/local/lib/libmpfr.4.dylib
+then try renaming the newer version to the older version, for example:
+  cp /usr/local/lib/libmpfr.6.dylib  /usr/local/lib/libmpfr.4.dylib
+========================================
