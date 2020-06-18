@@ -525,7 +525,7 @@ int main(int argc, char* argv[])
 
         fprintf(OUTFILE,"totqs = (");totqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");
         fprintf(OUTFILE,"totqsVan=%d; totqsLen=%d; totqsTrunc=%d;\n", totqs->van, totqs->len, totqs->getTrunc());
-        fprintf(OUTFILE, "domeSomething;\nseparator=nothing;\n\n");
+        fprintf(OUTFILE, "doSomething;\nseparator=nothing;\n\n");
         fflush(OUTFILE);
 
 
