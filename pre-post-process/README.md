@@ -67,7 +67,7 @@ For[i = 1, i <= Length[pList], i++,
 ```
 * The eigenvalues are now in the list resList and also in the hash TpvalHash
 
-## GQHRTp2
+## GQTp2HR
 ### Format of GritQuo input file
 * The GritQuo input file is the same as that used for GQHR.
 * The HR input file is slightly different than that used for GQHR.
@@ -149,8 +149,14 @@ For[i = 1, i <= Length[pList2], i++,
 ## BPHR
 * To be written
 
-## BPHRTp2
+## BPTp2HR
 * To be written
 
 ## TwHR
 * To be written
+
+## GritMonHR
+* To be written
+
+
+
