@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     23777,        683]
-NotebookOptionsPosition[     21983,        623]
-NotebookOutlinePosition[     22360,        639]
-CellTagsIndexPosition[     22317,        636]
+NotebookDataLength[     24979,        711]
+NotebookOptionsPosition[     23072,        647]
+NotebookOutlinePosition[     23447,        663]
+CellTagsIndexPosition[     23404,        660]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -430,10 +430,11 @@ Dave attributes to Ibukiyama is T(p^2)=T_0(p^2)+T_1(p^2)+T_2(p^2), where \
 T_0(p^2)=diag(1,1,p^2,p^2), T_1(p^2)=diag(1,p,p^2,p), T_2(p^2)=diag(p,p,p,p), \
 so T_2(p^2) acts as p^(2k-6).  Another notion is just T_1(p^2).  Relating the \
 two notions, we have T(p)^2=T_0(p^2)+(p+1)T_1(p^2)+(p^2+1)(p+1)T_2(p^2),  so  \
-T(p)^2-T(p^2)=p[T_1(p^2)+p^2+p+1].\
+T(p)^2-T(p^2)=p[T_1(p^2)+(p^2+p+1)*p^(2k-6) ].\
 \>", "Text",
  CellChangeTimes->{{3.7570314535261374`*^9, 3.7570314602331986`*^9}, {
-  3.799863573009519*^9, 3.7998635843591766`*^9}}],
+  3.799863573009519*^9, 3.7998635843591766`*^9}, {3.8015265898404937`*^9, 
+  3.801526609881858*^9}}],
 
 Cell[CellGroupData[{
 
@@ -617,12 +618,35 @@ Cell[BoxData["euList"], "Input",
    3.7570311528213615`*^9, 3.7570311731539774`*^9}, {3.757031237959645*^9, 
    3.757031238612943*^9}, 3.757031682649828*^9, {3.757032474634981*^9, 
    3.7570324765129623`*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["How to get Euler factors from PARI/GP for Jacobians.", "Subsection",
+ CellChangeTimes->{{3.7996936448695574`*^9, 3.7996936470118055`*^9}, {
+  3.7998636143959074`*^9, 3.799863624353256*^9}, {3.79986376954578*^9, 
+  3.7998637737485447`*^9}, {3.801526668943794*^9, 3.8015266844941773`*^9}}],
+
+Cell["\<\
+Go to\[NonBreakingSpace]https://pari.math.u-bordeaux.fr/gp.html
+Execute the command
+\[NonBreakingSpace] \[NonBreakingSpace] hyperellcharpoly((\[NonBreakingSpace] \
+\[OpenCurlyDoubleQuote]polynomial in x\[CloseCurlyDoubleQuote]\
+\[NonBreakingSpace] )*Mod(1, p ))
+to get the p-Euler-factor
+where \[OpenCurlyDoubleQuote]polynomial in x\[CloseCurlyDoubleQuote]
+is\[NonBreakingSpace] from the defining equation\[NonBreakingSpace] y^2 = \
+\[OpenCurlyDoubleQuote]polynomial in x\[CloseCurlyDoubleQuote].
+We can look up this equation at lmfdb.org.
+For 388, it is:\[NonBreakingSpace]x^6-2*x^4+2*x^3+9*x^2+6*x+1\
+\>", "Text",
+ CellChangeTimes->{{3.801526699229741*^9, 3.8015267313049335`*^9}}]
 }, Closed]]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{749, 738},
-WindowMargins->{{Automatic, 26}, {Automatic, 10}},
+WindowMargins->{{7, Automatic}, {9, Automatic}},
 Magnification:>1.5 Inherited,
 FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (September 21, 2016)",
 StyleDefinitions->"Default.nb"
@@ -656,32 +680,36 @@ Cell[6435, 184, 648, 17, 104, "Input"]
 }, Closed]],
 Cell[CellGroupData[{
 Cell[7120, 206, 303, 6, 102, "Subsection"],
-Cell[7426, 214, 606, 14, 133, "Input"],
-Cell[8035, 230, 122, 2, 45, "Input"],
-Cell[8160, 234, 127, 2, 45, "Input"],
-Cell[8290, 238, 1090, 25, 220, "Input"],
-Cell[9383, 265, 659, 15, 133, "Input"],
-Cell[10045, 282, 297, 7, 133, "Input"],
-Cell[10345, 291, 3081, 76, 655, "Input"],
-Cell[13429, 369, 282, 7, 45, "Input"],
-Cell[13714, 378, 1026, 26, 220, "Input"]
+Cell[7426, 214, 606, 14, 199, "Input"],
+Cell[8035, 230, 122, 2, 67, "Input"],
+Cell[8160, 234, 127, 2, 67, "Input"],
+Cell[8290, 238, 1090, 25, 330, "Input"],
+Cell[9383, 265, 659, 15, 199, "Input"],
+Cell[10045, 282, 297, 7, 199, "Input"],
+Cell[10345, 291, 3081, 76, 982, "Input"],
+Cell[13429, 369, 282, 7, 67, "Input"],
+Cell[13714, 378, 1026, 26, 330, "Input"]
 }, Closed]],
 Cell[CellGroupData[{
 Cell[14777, 409, 255, 6, 102, "Subsection"],
 Cell[CellGroupData[{
-Cell[15057, 419, 100, 1, 100, "Input"],
-Cell[15160, 422, 72, 1, 100, "Output"]
+Cell[15057, 419, 100, 1, 45, "Input"],
+Cell[15160, 422, 72, 1, 45, "Output"]
 }, Open  ]],
-Cell[15247, 426, 570, 9, 550, "Text"],
+Cell[15247, 426, 633, 10, 245, "Text"],
 Cell[CellGroupData[{
-Cell[15842, 439, 801, 24, 298, "Input"],
-Cell[16646, 465, 845, 24, 163, "Output"]
+Cell[15905, 440, 801, 24, 133, "Input"],
+Cell[16709, 466, 845, 24, 73, "Output"]
 }, Open  ]],
-Cell[17506, 492, 838, 24, 252, "Input"],
-Cell[18347, 518, 1020, 30, 298, "Input"],
-Cell[19370, 550, 1185, 33, 429, "Input"],
-Cell[20558, 585, 1104, 27, 559, "Input"],
-Cell[21665, 614, 278, 4, 100, "Input"]
+Cell[17569, 493, 838, 24, 112, "Input"],
+Cell[18410, 519, 1020, 30, 133, "Input"],
+Cell[19433, 551, 1185, 33, 191, "Input"],
+Cell[20621, 586, 1104, 27, 249, "Input"],
+Cell[21728, 615, 278, 4, 45, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[22043, 624, 293, 3, 102, "Subsection"],
+Cell[22339, 629, 693, 13, 245, "Text"]
 }, Closed]]
 }, Open  ]]
 }, Open  ]]
