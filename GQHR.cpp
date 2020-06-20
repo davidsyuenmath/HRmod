@@ -513,6 +513,7 @@ int main(int argc, char* argv[])
         fprintf(OUTFILE, "sizeoflonglong = %lu;\n", sizeof(long long));
 
         fprintf(OUTFILE,"totqs = (");totqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");
+        fprintf(OUTFILE, "totqsTrunc = %ld;\n", totqs->getTrunc());
         fprintf(OUTFILE, "doSomething;\nseparator=nothing;\n\n");
         fflush(OUTFILE);
 
