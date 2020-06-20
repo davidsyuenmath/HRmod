@@ -361,7 +361,7 @@ int main(int argc, char* argv[])
 	  else{totctr+=L;}
 	}
 	cout<<"NUMBER OF COSETS="<<totctr<<"\n";
-        totqs=new MySeriesTruncMod(modn, uptoN*L);
+        totqs=new MySeriesTruncMod(modn, uptoN*L*L); //Fixed from uptoN*L 20200619
 
         //TYPE 1 Tp2
         cout<<"Doing type 1 (globalctr="<<globalctr<<"). totqs=";totqs->printstdout();cout<<".\n";
@@ -584,6 +584,7 @@ int main(int argc, char* argv[])
         fprintf(OUTFILE, "sizeoflonglong = %lu;\n", sizeof(long long));
 
         fprintf(OUTFILE,"totqs = (");totqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");
+        fprintf(OUTFILE, "totqsTrunc = %ld;\n", totqs->getTrunc());
         fprintf(OUTFILE, "doSomething;\nseparator=nothing;\n\n");
         fflush(OUTFILE);
 
