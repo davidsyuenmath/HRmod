@@ -10,3 +10,7 @@ Six programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, Gr
 * GritMonHR: do Hecke restriction of a quotient where the numerator and denominator are monomials, potentially of high degree.
 * Also helper program MakeWHJF that makes and saves a weakly holomorphic Jacobi form that can be read by BPHR and BPTp2HR.
 * Helper FindBPEcombo will try to express a weight 0 form as a combo of BPE weight 0 forms.  Use Mathematica program to make input of the format that MakeWHJF outputs. This program is used to find GritMon representations.
+
+## Requirements
+
+* flint
