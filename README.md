@@ -13,4 +13,4 @@ Six programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, Gr
 
 ## Requirements
 
-* flint
+* flint, and implicitly anything that flint requires.
