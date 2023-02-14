@@ -1,6 +1,6 @@
 ## A family of programs that compute eigenvalues by restriction to a modular curve.
 
-Six programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, GritMonHR) using mod arithmetic, and helpers MakeWHJF, FindBPEcombo. 
+Seven programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, GritMonHR, GQHRbadprime) using mod arithmetic, and helpers MakeWHJF, FindBPEcombo. 
 
 * Implements speed up theorems.  
 * T2 versions of GQ and BP, but not Tw. 
