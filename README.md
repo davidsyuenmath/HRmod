@@ -15,3 +15,10 @@ Seven programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, 
 ## Requirements
 
 * flint, and implicitly anything that flint requires.
+
+## Notes
+
+* These programs were used in papers of Cris Poor, Jerry Shurman, David S. Yuen
+  - *On the paramodularity of typical abelian surfaces, Journal of Algebra and Number Theory*, 13 (2019) 1145-1195. (Armand Brumer, Ariel Pacetti, Cris Poor, Gonzalo Tornaria, John Voight, David S. Yuen)
+  - *Eigenvalues and congruences for the weight 3 paramodular nonlifts of levels 61, 73, and 79*, preprint (Cris Poor, Jerry Shurman, David S. Yuen)
+  - Future papers
