@@ -18,6 +18,7 @@ Seven programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, 
 * The versions that worked with flint2.5 are in the branch flint2.5-version.
 * The current (2023-06-01) version of flint is flint3.0 and is **not backwards compatible** with the version that was compiled with flint2.5. 
 We are currently working to rewrite all the programs in the master branch to be compatible with flint3.0.  Currently only GQHR and GQTp2HR have been updated to be compatible with flint3.0 (Note to self: MySeriesTruncMod.cpp was the other file that needed fixing).
+* Example compile command: g++ -o GQHR -I/usr/local/include/flint  -L/usr/local/lib/ -lflint -lgmp GQHR.cpp
 
 ## Notes
 
