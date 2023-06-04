@@ -5,8 +5,9 @@ int MySeriesTruncMod::checkSameTrunc=1;
 MySeriesTruncMod::MySeriesTruncMod(fmpz_t modn0, int upto){
     fmpz_init(modn);
     fmpz_set(modn, modn0);
-    fmpz_mod_poly_init(p, modn);
-    fmpz_mod_poly_zero(p);
+    fmpz_mod_ctx_init(modnctx,modn);
+    fmpz_mod_poly_init(p, modnctx);
+    fmpz_mod_poly_zero(p, modnctx);
     len=upto+1;
     van=0; //Could be len also, but we choose van=0.  Do not change
     normalized=0;
@@ -15,8 +16,9 @@ MySeriesTruncMod::MySeriesTruncMod(fmpz_t modn0, int upto){
 MySeriesTruncMod::MySeriesTruncMod(int modn0, int upto){
     fmpz_init(modn);
     fmpz_set_si(modn, modn0);
-    fmpz_mod_poly_init(p, modn);
-    fmpz_mod_poly_zero(p);
+    fmpz_mod_ctx_init(modnctx,modn);
+    fmpz_mod_poly_init(p, modnctx);
+    fmpz_mod_poly_zero(p, modnctx);
     len=upto+1;
     van=0; 
     normalized=0;
@@ -25,8 +27,9 @@ MySeriesTruncMod::MySeriesTruncMod(int modn0, int upto){
 MySeriesTruncMod::MySeriesTruncMod(int modn0, int upto, int inSqrtQ0){
     fmpz_init(modn);
     fmpz_set_si(modn, modn0);
-    fmpz_mod_poly_init(p, modn);
-    fmpz_mod_poly_zero(p);
+    fmpz_mod_ctx_init(modnctx,modn);
+    fmpz_mod_poly_init(p, modnctx);
+    fmpz_mod_poly_zero(p, modnctx);
     len=upto+1;
     van=0; 
     normalized=0;
@@ -35,8 +38,9 @@ MySeriesTruncMod::MySeriesTruncMod(int modn0, int upto, int inSqrtQ0){
 MySeriesTruncMod::MySeriesTruncMod(fmpz_t modn0, int upto, int inSqrtQ0){
     fmpz_init(modn);
     fmpz_set(modn, modn0);
-    fmpz_mod_poly_init(p, modn);
-    fmpz_mod_poly_zero(p);
+    fmpz_mod_ctx_init(modnctx,modn);
+    fmpz_mod_poly_init(p, modnctx);
+    fmpz_mod_poly_zero(p, modnctx);
     len=upto+1;
     van=0; 
     normalized=0;
@@ -46,8 +50,9 @@ MySeriesTruncMod::MySeriesTruncMod(fmpz_t modn0, int upto, int inSqrtQ0){
 MySeriesTruncMod::MySeriesTruncMod(MySeriesTruncMod*f){
     fmpz_init(modn);
     fmpz_set(modn, f->modn);
-    fmpz_mod_poly_init(p, modn);
-    fmpz_mod_poly_set(p, f->p);
+    fmpz_mod_ctx_init(modnctx,modn);
+    fmpz_mod_poly_init(p, modnctx);
+    fmpz_mod_poly_set(p, f->p, modnctx);
     len=f->len;
     van=f->van;
     normalized=f->normalized;
@@ -56,7 +61,8 @@ MySeriesTruncMod::MySeriesTruncMod(MySeriesTruncMod*f){
 
 MySeriesTruncMod:: ~MySeriesTruncMod(){//destructor
     fmpz_clear(modn);
-    fmpz_mod_poly_clear(p);
+    fmpz_mod_ctx_clear(modnctx);
+    fmpz_mod_poly_clear(p, modnctx);
 }
 slong MySeriesTruncMod::getTrunc(){
     return van + len;
@@ -94,7 +100,7 @@ void  MySeriesTruncMod::normalize(){
     //for(i=1;i<trunc;i++){  This was original.  Shouldn't this be i=0; ?? Fixed 20200602
     int i;
     for(i=0;i<len;i++){
-        fmpz_mod_poly_get_coeff_fmpz(tmp,p,i);
+        fmpz_mod_poly_get_coeff_fmpz(tmp,p,i, modnctx);
         if(!fmpz_is_zero(tmp)){
             newvan =  i+van;
             break;
@@ -105,15 +111,15 @@ void  MySeriesTruncMod::normalize(){
     if(newvan==van+len){//zero poly
         van = van + len;
         len = 0;
-        fmpz_mod_poly_zero(p); //maybe not necessary?
+        fmpz_mod_poly_zero(p, modnctx); //maybe not necessary?
         return;
     }
     // p should be adjusted down by v-van and van=v;
     fmpz_mod_poly_t tmpp;
-    fmpz_mod_poly_init(tmpp, modn);
-    fmpz_mod_poly_set(tmpp, p);
-    fmpz_mod_poly_shift_right(p, tmpp, newvan-van);
-    fmpz_mod_poly_clear(tmpp);
+    fmpz_mod_poly_init(tmpp, modnctx);
+    fmpz_mod_poly_set(tmpp, p, modnctx);
+    fmpz_mod_poly_shift_right(p, tmpp, newvan-van, modnctx);
+    fmpz_mod_poly_clear(tmpp, modnctx);
     len = len -(newvan-van);
     van = newvan;
 }
@@ -121,8 +127,8 @@ void  MySeriesTruncMod::normalize(){
 MySeriesTruncMod* MySeriesTruncMod::monicBinomial(fmpz_t modn0, int upto, fmpz_t oneCoeff, int e){
     //initializes to 1 + c * x^e
     MySeriesTruncMod* ans = new MySeriesTruncMod(modn0, upto);
-    fmpz_mod_poly_set_coeff_ui(ans->p, 0, 1);
-    if(e<=upto){fmpz_mod_poly_set_coeff_fmpz(ans->p, e, oneCoeff);}
+    fmpz_mod_poly_set_coeff_ui(ans->p, 0, 1, modnctx);
+    if(e<=upto){fmpz_mod_poly_set_coeff_fmpz(ans->p, e, oneCoeff, modnctx);}
     if(e<1){cout<<"ERROR czvzv in MySeriesTruncMod. Abort.\n";exit(1);}
     return ans;
 }  //Initializes to 1 + c*x^e
@@ -134,23 +140,23 @@ int MySeriesTruncMod::setMonicBinomialBPSpecial(fmpz_t oneCoeff, int e){
     if(inSqrtQ){cout<<"Error 4t8asf0 in setMonicBinomialBPSpecial. Abort.\n";exit(1);}
     len=getTrunc();
     van=0;
-    fmpz_mod_poly_zero(p);
+    fmpz_mod_poly_zero(p, modnctx);
     //cout<<"[STEP zeroing out] ";printstdout();cout<<"\n";
     if(e>0){
-        fmpz_mod_poly_set_coeff_ui(p, 0, 1);
+        fmpz_mod_poly_set_coeff_ui(p, 0, 1, modnctx);
         //cout<<"[STEP set coeff 0 to 1] ";printstdout();cout<<"\n";
         if(e<len){
-            fmpz_mod_poly_set_coeff_fmpz(p, e, oneCoeff);
+            fmpz_mod_poly_set_coeff_fmpz(p, e, oneCoeff, modnctx);
             //cout<<"[STEP set coeff e to oneCoeff] ";printstdout();cout<<"\n";
         }
         //cout<<"[expon>0] ";printstdout();cout<<"\n";
         return 0;
     }else if(e<0){
-        fmpz_mod_poly_set_coeff_fmpz(p, 0, oneCoeff);
+        fmpz_mod_poly_set_coeff_fmpz(p, 0, oneCoeff, modnctx);
         //cout<<"oneCoeff="<<fmpz_get_si(oneCoeff)<<"\n";
         //cout<<"[STEP Z2 set coeff 0 to oneCoeff] ";printstdout();cout<<"\n";
         if(-e<len){
-            fmpz_mod_poly_set_coeff_ui(p, -e, 1);
+            fmpz_mod_poly_set_coeff_ui(p, -e, 1, modnctx);
             //cout<<"[STEP set coeff -e to 1] ";printstdout();cout<<"\n";
         }
         //cout<<"[expon<0] ";printstdout();cout<<"\n";
@@ -159,7 +165,7 @@ int MySeriesTruncMod::setMonicBinomialBPSpecial(fmpz_t oneCoeff, int e){
         fmpz_t temp;
         fmpz_init_set_si(temp, 1);
         fmpz_add(temp, temp, oneCoeff);
-        fmpz_mod_poly_set_coeff_fmpz(p, 0, temp);
+        fmpz_mod_poly_set_coeff_fmpz(p, 0, temp, modnctx);
         //cout<<"[STEP set coeff 0 to temp=1+oneCoeff] ";printstdout();cout<<"\n";
         //cout<<"[expon o/w] ";printstdout();cout<<"\n";
         fmpz_clear(temp);
@@ -170,35 +176,35 @@ MySeriesTruncMod* MySeriesTruncMod::monomial(fmpz_t modn0, int upto, fmpz_t oneC
     //initializes to c * x^e
     MySeriesTruncMod* ans = new MySeriesTruncMod(modn0, upto);
     if(e<0){cout<<"ERROR cvrgaaa in MySeriesTruncMod. Abort.\n";exit(1);}
-    if(e<=upto){fmpz_mod_poly_set_coeff_fmpz(ans->p, e, oneCoeff);}
+    if(e<=upto){fmpz_mod_poly_set_coeff_fmpz(ans->p, e, oneCoeff, modnctx);}
     ans->normalize();
     return ans;
 }  //Initializes to c*x^e
 
 void MySeriesTruncMod::getFullPoly(fmpz_mod_poly_t ans){
     if(van==0){
-        fmpz_mod_poly_set(ans, p);
+        fmpz_mod_poly_set(ans, p, modnctx);
     }else{
-        fmpz_mod_poly_shift_left(ans, p, van);
+        fmpz_mod_poly_shift_left(ans, p, van, modnctx);
     }
 }
 
 MySeriesTruncMod* MySeriesTruncMod::add(MySeriesTruncMod* f, MySeriesTruncMod* g){
     checkSameinSqrtQ(f,g);
     fmpz_mod_poly_t fp, gp, ansp;
-    fmpz_mod_poly_init(fp, f->modn);
-    fmpz_mod_poly_init(gp, g->modn);
+    fmpz_mod_poly_init(fp, f->modnctx);
+    fmpz_mod_poly_init(gp, g->modnctx);
     f->getFullPoly(fp);
     g->getFullPoly(gp);
     slong e = f->getTrunc(); if(g->getTrunc()<e){e=g->getTrunc();}
-    fmpz_mod_poly_init(ansp, f->modn);
-    fmpz_mod_poly_add(ansp, fp, gp);
+    fmpz_mod_poly_init(ansp, f->modnctx);
+    fmpz_mod_poly_add(ansp, fp, gp, f->modnctx);
     MySeriesTruncMod* ans = new MySeriesTruncMod(f->modn, e-1, f->inSqrtQ);
-    fmpz_mod_poly_set(ans->p, ansp);
+    fmpz_mod_poly_set(ans->p, ansp, f->modnctx);
     ans->normalize();
-    fmpz_mod_poly_clear(fp);
-    fmpz_mod_poly_clear(gp);
-    fmpz_mod_poly_clear(ansp);
+    fmpz_mod_poly_clear(fp, f->modnctx);
+    fmpz_mod_poly_clear(gp, f->modnctx);
+    fmpz_mod_poly_clear(ansp, f->modnctx);
     return ans;
 }
 void MySeriesTruncMod::addAndAdjustTrunc(MySeriesTruncMod* g){
@@ -208,30 +214,30 @@ void MySeriesTruncMod::addBy(MySeriesTruncMod* g){
     normalized=0;
     checkSameinSqrtQ(this,g);
     fmpz_mod_poly_t fp, gp;
-    fmpz_mod_poly_init(fp, modn);
-    fmpz_mod_poly_init(gp, g->modn);
+    fmpz_mod_poly_init(fp, modnctx);
+    fmpz_mod_poly_init(gp, g->modnctx);
     getFullPoly(fp);
     g->getFullPoly(gp);
     slong e = getTrunc(); if(g->getTrunc()<e){e=g->getTrunc();}
-    fmpz_mod_poly_add(p, fp, gp);
+    fmpz_mod_poly_add(p, fp, gp, modnctx);
     van=0;
     len=e;
     normalize();
-    fmpz_mod_poly_clear(fp);
-    fmpz_mod_poly_clear(gp);
+    fmpz_mod_poly_clear(fp, modnctx);
+    fmpz_mod_poly_clear(gp, modnctx);
 }
 MySeriesTruncMod* MySeriesTruncMod::scalarMultiplity(MySeriesTruncMod* g, fmpz_t a){
     MySeriesTruncMod* ans = new MySeriesTruncMod(g->modn, g->getTrunc()-1, g->inSqrtQ);
-    fmpz_mod_poly_scalar_mul_fmpz(ans->p, g->p, a);
+    fmpz_mod_poly_scalar_mul_fmpz(ans->p, g->p, a, g->modnctx);
     return ans;
 }
 void MySeriesTruncMod::scalarMultiplyBy(fmpz_t a){
     normalized=0;
-    fmpz_mod_poly_scalar_mul_fmpz(p, p, a);
+    fmpz_mod_poly_scalar_mul_fmpz(p, p, a, modnctx);
 }
 void MySeriesTruncMod::scalarMultiplityBy(fmpz_t a){
     normalized=0;
-    fmpz_mod_poly_scalar_mul_fmpz(p, p, a);
+    fmpz_mod_poly_scalar_mul_fmpz(p, p, a, modnctx);
 }
 MySeriesTruncMod* MySeriesTruncMod::multiply(MySeriesTruncMod* f, MySeriesTruncMod* g){
     checkSameinSqrtQ(f,g);
@@ -243,7 +249,7 @@ MySeriesTruncMod* MySeriesTruncMod::multiply(MySeriesTruncMod* f, MySeriesTruncM
     ans->len = e;
     ans->normalized=1;
     // NOTE: result of multiplication is automatically normalized.
-    if(e>0)fmpz_mod_poly_mullow(ans->p, f->p, g->p, e);
+    if(e>0)fmpz_mod_poly_mullow(ans->p, f->p, g->p, e, f->modnctx);
     return ans;
 }
 void MySeriesTruncMod::multiplyBy(MySeriesTruncMod* g){
@@ -254,8 +260,8 @@ void MySeriesTruncMod::multiplyBy(MySeriesTruncMod* g){
     slong e = len; if(g->len<e){e=g->len;}
     van=van+g->van;
     len = e;
-    if(e==0){fmpz_mod_poly_zero(p);}
-    else{fmpz_mod_poly_mullow(p, p, g->p, e);}
+    if(e==0){fmpz_mod_poly_zero(p, modnctx);}
+    else{fmpz_mod_poly_mullow(p, p, g->p, e, g->modnctx);}
 }
 MySeriesTruncMod* MySeriesTruncMod::pow(MySeriesTruncMod* f, slong e){
     f->normalize();
@@ -265,13 +271,13 @@ MySeriesTruncMod* MySeriesTruncMod::pow(MySeriesTruncMod* f, slong e){
     MySeriesTruncMod* ans = new MySeriesTruncMod(f->modn, e*f->van+f->len-1, f->inSqrtQ);
     // DO WE NEED SPECIAL CASES WHEN f is possibly zero? or when e is 0?
     if(e>=0){
-        fmpz_mod_poly_pow_trunc_binexp(ans->p, f->p, e,f->len);
+        fmpz_mod_poly_pow_trunc_binexp(ans->p, f->p, e,f->len, f->modnctx);
         ans->van = e*f->van;
         ans->len = f->len;
     }else{ // e<0 and f->van==0 here.
         ans->len=f->len; ans->van=0;
-        fmpz_mod_poly_pow_trunc_binexp(ans->p, f->p, -e,ans->len);
-        fmpz_mod_poly_inv_series(ans->p, ans->p, ans->len);
+        fmpz_mod_poly_pow_trunc_binexp(ans->p, f->p, -e,ans->len, f->modnctx);
+        fmpz_mod_poly_inv_series(ans->p, ans->p, ans->len, f->modnctx);
     } 
     ans->normalized=1;
     // NOTE: result of multiplication is automatically normalized.
@@ -297,18 +303,18 @@ void MySeriesTruncMod::getCoeff(fmpz_t c, int e){
         return;
     }
     if(e>=getTrunc()){cout<<"ERROR 32tfgdf: Request for coeff is beyond valid trunc ("<<e<<","<<getTrunc()<<").  Abort.\n";exit(1);}
-    fmpz_mod_poly_get_coeff_fmpz(c, p, e-van);
+    fmpz_mod_poly_get_coeff_fmpz(c, p, e-van, modnctx);
 }
 void MySeriesTruncMod::setCoeff(fmpz_t c, int e){
     normalized=0;
     if(e>=getTrunc()){cout<<"ERROR adfshye45y: Attempt to set coeff beyond valid trunc ("<<e<<","<<getTrunc()<<").  Abort.\n";exit(1);}
     if(e<van){
-        fmpz_mod_poly_shift_left(p, p, van-e);
+        fmpz_mod_poly_shift_left(p, p, van-e, modnctx);
         len = len +(van-e);
         van = e;
-        fmpz_mod_poly_set_coeff_fmpz(p, e-van, c);
+        fmpz_mod_poly_set_coeff_fmpz(p, e-van, c, modnctx);
     }else{
-        fmpz_mod_poly_set_coeff_fmpz(p, e-van, c);
+        fmpz_mod_poly_set_coeff_fmpz(p, e-van, c, modnctx);
     }
     // SAVE TIME BY not always normalizing.
     //normalize();
@@ -317,12 +323,12 @@ void MySeriesTruncMod::setCoeff(ulong c, int e){
     normalized=0;
     if(e>=getTrunc()){cout<<"ERROR jgfdgr8lll: Attempt to set coeff beyond valid trunc ("<<e<<","<<getTrunc()<<").  Abort.\n";exit(1);}
     if(e<van){
-        fmpz_mod_poly_shift_left(p, p, van-e);
+        fmpz_mod_poly_shift_left(p, p, van-e, modnctx);
         len = len +(van-e);
         van = e;
-        fmpz_mod_poly_set_coeff_ui(p, e-van, c);
+        fmpz_mod_poly_set_coeff_ui(p, e-van, c, modnctx);
     }else{
-        fmpz_mod_poly_set_coeff_ui(p, e-van, c);
+        fmpz_mod_poly_set_coeff_ui(p, e-van, c, modnctx);
     }
     // SAVE TIME BY not always normalizing.
     //normalize();
@@ -338,24 +344,24 @@ void MySeriesTruncMod::updateCoeffAdd(fmpz_t c, int e){
 }
 void MySeriesTruncMod::printstdout(const char *x){
     if(van==0){
-        fmpz_mod_poly_print_pretty(p, x);
+        fmpz_mod_poly_print_pretty(p, x, modnctx);
     }else{
         fmpz_mod_poly_t temp;
-        fmpz_mod_poly_init(temp, modn);
+        fmpz_mod_poly_init(temp, modnctx);
         getFullPoly(temp);
-        fmpz_mod_poly_print_pretty(temp, x);
-        fmpz_mod_poly_clear(temp);
+        fmpz_mod_poly_print_pretty(temp, x, modnctx);
+        fmpz_mod_poly_clear(temp, modnctx);
     }
 }
 void MySeriesTruncMod::printFile(FILE *outf, const char *x){
     if(van==0){
-        fmpz_mod_poly_fprint_pretty(outf, p, x);
+        fmpz_mod_poly_fprint_pretty(outf, p, x, modnctx);
     }else{
         fmpz_mod_poly_t temp;
-        fmpz_mod_poly_init(temp, modn);
+        fmpz_mod_poly_init(temp, modnctx);
         getFullPoly(temp);
-        fmpz_mod_poly_fprint_pretty(outf, temp, x);
-        fmpz_mod_poly_clear(temp);
+        fmpz_mod_poly_fprint_pretty(outf, temp, x, modnctx);
+        fmpz_mod_poly_clear(temp, modnctx);
     }
 }
 void MySeriesTruncMod::printstdout(){
@@ -398,7 +404,7 @@ MySeriesTruncMod*  MySeriesTruncMod::expandExpBy(int factor, int newupto){
         newi=i*factor;
         if(newi<=newupto){
             getCoeff(tmp,i);
-            fmpz_mod_poly_set_coeff_fmpz(ans->p,newi,tmp);
+            fmpz_mod_poly_set_coeff_fmpz(ans->p,newi,tmp, modnctx);
         }
     }
     fmpz_clear(tmp);
@@ -413,7 +419,7 @@ MySeriesTruncMod*  MySeriesTruncMod::contractExpBy(int factor){
         if((i%factor)==0){
             newi=i/factor;
             getCoeff(tmp,i);
-            fmpz_mod_poly_set_coeff_fmpz(ans->p,newi,tmp);
+            fmpz_mod_poly_set_coeff_fmpz(ans->p,newi,tmp, modnctx);
         }else{ //Check that coefficient is zero!
             getCoeff(tmp,i);
             if(!fmpz_is_zero(tmp)){
@@ -445,7 +451,7 @@ MySeriesTruncMod* MySeriesTruncMod::pow(MySeriesTruncMod* f, fmpz_t e){
         fmpz_init(nege);
         fmpz_neg(nege, e);
         MySeriesTruncMod* ans = MySeriesTruncMod::pow(f, nege);
-        fmpz_mod_poly_inv_series(ans->p, ans->p, ans->len);
+        fmpz_mod_poly_inv_series(ans->p, ans->p, ans->len, f->modnctx);
         fmpz_clear(nege);
         return ans;
     }
@@ -458,16 +464,16 @@ MySeriesTruncMod* MySeriesTruncMod::pow(MySeriesTruncMod* f, fmpz_t e){
     fmpz_fdiv_qr(q, r, e, ulongmax);
     MySeriesTruncMod *ans;
     ans=pow(f, q);
-    fmpz_mod_poly_pow_trunc_binexp(ans->p, ans->p, fmpz_get_ui(ulongmax),f->len);
+    fmpz_mod_poly_pow_trunc_binexp(ans->p, ans->p, fmpz_get_ui(ulongmax),f->len, f->modnctx);
     ans->van = fmpz_get_ui(ulongmax)*ans->van;
 
     fmpz_mod_poly_t tmp;
-    fmpz_mod_poly_init(tmp, f->modn);
-    fmpz_mod_poly_pow_trunc_binexp(tmp, f->p, fmpz_get_ui(r),f->len);
-    fmpz_mod_poly_mullow(ans->p, ans->p, tmp, f->len);
+    fmpz_mod_poly_init(tmp, f->modnctx);
+    fmpz_mod_poly_pow_trunc_binexp(tmp, f->p, fmpz_get_ui(r),f->len, f->modnctx);
+    fmpz_mod_poly_mullow(ans->p, ans->p, tmp, f->len, f->modnctx);
     ans->van = ans->van + fmpz_get_ui(r) * f->van;
 
-    fmpz_clear(q); fmpz_clear(r);fmpz_mod_poly_clear(tmp);
+    fmpz_clear(q); fmpz_clear(r);fmpz_mod_poly_clear(tmp, f->modnctx);
     return ans;
 }
 
@@ -494,11 +500,11 @@ void MySeriesTruncMod::clearSqrts(){ //convert inSqrtQ=1 to 0.
     }
     for(i=2;i<getTrunc();i+=2){
         getCoeff(tmp,i);
-        fmpz_mod_poly_set_coeff_fmpz(p,i/2,tmp);
+        fmpz_mod_poly_set_coeff_fmpz(p,i/2,tmp, modnctx);
     }
     len=(len+1)/2;
     van=0;
-    fmpz_mod_poly_truncate(p, len);
+    fmpz_mod_poly_truncate(p, len, modnctx);
     inSqrtQ=0;
     normalize();
     fmpz_clear(tmp);
@@ -511,12 +517,12 @@ void MySeriesTruncMod::shift(int up){
         return;
     }
     cout<<"ERROR dg8isasugdkgk in shift. (van,len,up)=("<<van<<","<<len<<","<<up<<").  No precision left. \n"; exit(1);
-    // DON'T SHIFT OFF PRECISION. fmpz_mod_poly_shift_right(p,p,-(up+origvan));
+    // DON'T SHIFT OFF PRECISION. fmpz_mod_poly_shift_right(p,p,-(up+origvan), modnctx);
 }
 
 MySeriesTruncMod* MySeriesTruncMod::makeCopy(){
     MySeriesTruncMod* newg = new MySeriesTruncMod(modn, getTrunc()-1, inSqrtQ);
-    fmpz_mod_poly_set(newg->p, p);
+    fmpz_mod_poly_set(newg->p, p, modnctx);
     newg->van=van;
     newg->len=len;
     newg->normalized=normalized;
