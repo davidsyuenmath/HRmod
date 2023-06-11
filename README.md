@@ -23,7 +23,7 @@ We are currently working to rewrite all the programs in the master branch to be 
 	* The main incompatibility that needs to be updated is that now arithmetic modulo integers require a context object of type fmpz_mod_ctx_t.
 	* The other programs (BPHR, BPHRTp2, TwHR, GritMonHR) have not yet been updated. These were not required for calculating the eigenvalues reported in the paper "EIGENVALUES AND CONGRUENCES FOR THE WEIGHT 3
 PARAMODULAR NONLIFTS OF LEVELS 61, 73, AND 79".  That is, the programs that were used in that paper have been updated for flint3.0.
-	* Technical note: MySeriesTruncMod.cpp was the other file that needed updated.
+	* Technical note: MySeriesTruncMod.cpp was the other file that needed updating.
 
 ## Notes
 
