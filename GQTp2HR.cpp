@@ -196,9 +196,9 @@ int main(int argc, char* argv[])
         cout<<"Output progress every printEvery. Use 0 for default.\n";
         cout<<"saveFileName from file is used by default.\n";
         cout<<"Info about this machine:\n";
-        printf("sizeof(slong) = %lu;\n", sizeof(slong));
-        printf("sizeof(int) = %lu;\n", sizeof(int));
-        printf("sizeof(long long) = %lu;\n", sizeof(long long));
+        printf("sizeof(slong) = %d;\n", sizeof(slong));
+        printf("sizeof(int) = %d;\n", sizeof(int));
+        printf("sizeof(long long) = %d;\n", sizeof(long long));
 
     return 1;
     }
@@ -230,7 +230,7 @@ int main(int argc, char* argv[])
 
     string f;
     stringstream ffs;
-    ffs<<"outputTp2-"<<GQfileName<<"-"<<infileName;
+    ffs<<"outputTp2v2-"<<GQfileName<<"-"<<infileName;
     ffs>>outfileRoot;
     ffs.clear();
     if(saveFileQ){
@@ -350,7 +350,7 @@ int main(int argc, char* argv[])
     //cout<<"HERE B8.\n";
 
 
-
+        int diagnosePrint=0; //Turn on or off diagnostic printing
 
         cout<<"**************** L="<<L<<" ***********************\n";
         totctr=1+1+L+L*L; ctr=0; globalctr=0;
@@ -361,7 +361,7 @@ int main(int argc, char* argv[])
 	  else{totctr+=L;}
 	}
 	cout<<"NUMBER OF COSETS="<<totctr<<"\n";
-        totqs=new MySeriesTruncMod(modn, uptoN*L*L); //Fixed from uptoN*L 20200619
+        totqs=new MySeriesTruncMod(modn, uptoN*L*L);
 
         //TYPE 1 Tp2
         cout<<"Doing type 1 (globalctr="<<globalctr<<"). totqs=";totqs->printstdout();cout<<".\n";
@@ -376,10 +376,12 @@ int main(int argc, char* argv[])
             }
             oneqs0=doOneCoset(RNG, sa, sb*L, sc*L*L, 0,0,0, 1, LrootPowers, uptoN);
             oneqs= oneqs0->expandExpBy(L*L, uptoN*L*L); delete oneqs0;
+            if(diagnosePrint){cout<<"("<<globalctr<<"): oneqs= "; oneqs->printstdout();cout<<".\n";}
             myfmpz_powm(detAfactor, fmpzL, 3*weight-6, modn);
 
             //cout<<"DIAGNOSTICS A: detAfactor="<<fmpz_get_si(detAfactor)<<".\n";
             oneqs->scalarMultiplityBy(detAfactor);
+            if(diagnosePrint){cout<<"("<<globalctr<<"): TO BE ADDED IN TO totqs= "; oneqs->printstdout();cout<<".\n";}
             totqs->addBy(oneqs);
             if(PRINTTYPE){fprintf(OUTFILE,"TYPE1 = (");oneqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");}
 
@@ -408,9 +410,11 @@ int main(int argc, char* argv[])
 		oneqs0=doOneCoset(RNG, L*L*sa, L*(sb+a*sa), sc+2*a*sb+a*a*sa,
                    0,0,0, 1, LrootPowers, uptoN);
                oneqs= oneqs0->expandExpBy(L*L, uptoN*L*L); delete oneqs0;
+            if(diagnosePrint){cout<<"("<<globalctr<<"): oneqs= "; oneqs->printstdout();cout<<".\n";}
              myfmpz_powm(detAfactor, fmpzL, 3*weight-6, modn);
 
 		oneqs->scalarMultiplityBy(detAfactor);
+            if(diagnosePrint){cout<<"("<<globalctr<<"): TO BE ADDED IN TO totqs= "; oneqs->printstdout();cout<<".\n";}
            totqs->addBy(oneqs);
                 if(PRINTTYPE){fprintf(OUTFILE,"TYPE2X%dX = (",a);oneqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");}
                 delete oneqs;
@@ -438,8 +442,11 @@ int main(int argc, char* argv[])
                 }
                 oneqs0=doOneCoset(RNG, L*sa, L*sb, L*sc, a,0,0, L, LrootPowers, uptoN);
                 oneqs= oneqs0->expandExpBy(L, uptoN*L*L); delete oneqs0;
+            if(diagnosePrint){cout<<"("<<globalctr<<"): oneqs= "; oneqs->printstdout();cout<<".\n";}
                 myfmpz_powm(detAfactor, fmpzL, 2*weight-6, modn);
                 oneqs->scalarMultiplityBy(detAfactor);
+            if(diagnosePrint){cout<<"("<<globalctr<<"): AFTER MULTIPLY by detAfactor oneqs= "; oneqs->printstdout();cout<<".\n";}
+            if(diagnosePrint){cout<<"("<<globalctr<<"): TO BE ADDED IN TO totqs= "; oneqs->printstdout();cout<<".\n";}
                 totqs->addBy(oneqs);
                 delete oneqs;
             }
@@ -461,8 +468,10 @@ int main(int argc, char* argv[])
                 }
                 oneqs0=doOneCoset(RNG,L*sa,L*sb,L*sc,a*b*b,a*b,a, L, LrootPowers, uptoN);
                 oneqs= oneqs0->expandExpBy(L, uptoN*L*L); delete oneqs0;
+            if(diagnosePrint){cout<<"("<<globalctr<<"): oneqs= "; oneqs->printstdout();cout<<".\n";}
                 myfmpz_powm(detAfactor, fmpzL, 2*weight-6, modn);
                 oneqs->scalarMultiplityBy(detAfactor);
+            if(diagnosePrint){cout<<"("<<globalctr<<"): TO BE ADDED IN TO totqs= "; oneqs->printstdout();cout<<".\n";}
                 totqs->addBy(oneqs);
                 delete oneqs;
             }
@@ -496,9 +505,10 @@ int main(int argc, char* argv[])
                 }
                 oneqs=doOneCoset(RNG, sa, L*sb, L*L*sc, b,L*a,0, L*L, L2rootPowers, uptoN);
                 //No expand
+            if(diagnosePrint){cout<<"("<<globalctr<<"): oneqs= "; oneqs->printstdout();cout<<".\n";}
                 partialsum->addBy(oneqs);
                 if((beginCtr>0)&&(endCtr==beginCtr)){
-                    fprintf(OUTFILE,"abc={%d,%d};\n",a,b);
+                    fprintf(OUTFILE,"abc={%d,%d,%d};\n",a,b);
                 }
                 delete oneqs;
             }
@@ -510,6 +520,7 @@ int main(int argc, char* argv[])
             myfmpz_powm(detAfactor, fmpzL, weight-6+2, modn);
         }
         partialsum->scalarMultiplityBy(detAfactor);
+            if(diagnosePrint){cout<<"("<<globalctr<<"): TO BE ADDED IN TO totqs= "; partialsum->printstdout();cout<<".\n";}
         totqs->addBy(partialsum);
         delete partialsum;
 
@@ -540,7 +551,8 @@ int main(int argc, char* argv[])
                     cout.flush();
                 }
                 oneqs=doOneCoset(RNG, L*L*sa, L*(sb+a*sa), sc+2*a*sb+a*a*sa,
-                  0,L*b, a*b+c, L*L, L2rootPowers, uptoN);
+                  0,L*b, c, L*L, L2rootPowers, uptoN);
+                  //0,L*b, a*b+c, L*L, L2rootPowers, uptoN);
                //No expand
                 if(((sc+2*a*sb+a*a*sa)%L)==0){
                 }else{
@@ -549,8 +561,9 @@ int main(int argc, char* argv[])
                }
                 partialsum->addBy(oneqs);
                 if((beginCtr>0)&&(endCtr==beginCtr)){
-                    fprintf(OUTFILE,"abc={%d,%d};\n",a,b);
+                    fprintf(OUTFILE,"abc={%d,%d,%d};\n",a,b);
                 }
+            if(diagnosePrint){cout<<"("<<globalctr<<"): oneqs= "; oneqs->printstdout();cout<<".\n";}
                 delete oneqs;
             }
 
@@ -561,6 +574,7 @@ int main(int argc, char* argv[])
 
          myfmpz_powm(detAfactor, fmpzL, weight-6, modn);
         partialsum->scalarMultiplityBy(detAfactor);
+            if(diagnosePrint){cout<<"("<<globalctr<<"): TO BE ADDED IN TO totqs= "; partialsum->printstdout();cout<<".\n";}
         totqs->addBy(partialsum);
         delete partialsum;
 
@@ -579,12 +593,11 @@ int main(int argc, char* argv[])
         fprintf(OUTFILE, "L2root=%d;\n", L2root);
         fprintf(OUTFILE, "Lroot=%d;\n", Lroot);
         fprintf(OUTFILE, "numCosets=%d;\n", ctr);
-        fprintf(OUTFILE, "sizeofslong = %lu;\n", sizeof(slong));
-        fprintf(OUTFILE, "sizeofint = %lu;\n", sizeof(int));
-        fprintf(OUTFILE, "sizeoflonglong = %lu;\n", sizeof(long long));
+        fprintf(OUTFILE, "sizeofslong = %d;\n", sizeof(slong));
+        fprintf(OUTFILE, "sizeofint = %d;\n", sizeof(int));
+        fprintf(OUTFILE, "sizeoflonglong = %d;\n", sizeof(long long));
 
         fprintf(OUTFILE,"totqs = (");totqs->printFile(OUTFILE);fprintf(OUTFILE,");\n");
-        fprintf(OUTFILE, "totqsTrunc = %ld;\n", totqs->getTrunc());
         fprintf(OUTFILE, "doSomething;\nseparator=nothing;\n\n");
         fflush(OUTFILE);
 
