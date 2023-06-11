@@ -15,10 +15,15 @@ Seven programs. Hecke Restriction programs (BPHR, GQHR, BPTp2HR, GQTp2HR, TwHR, 
 ## Requirements
 
 * flint, and implicitly anything that flint requires.
-* The versions that worked with flint2.5 are in the branch flint2.5-version.
-* The current (2023-06-01) version of flint is flint3.0 and is **not backwards compatible** with the version that was compiled with flint2.5. 
-We are currently working to rewrite all the programs in the master branch to be compatible with flint3.0.  Currently only GQHR and GQTp2HR have been updated to be compatible with flint3.0 (Note to self: MySeriesTruncMod.cpp was the other file that needed fixing).
-* Example compile command: g++ -o GQHR -I/usr/local/include/flint  -L/usr/local/lib/ -lflint -lgmp GQHR.cpp
+* The versions that worked with previous version flint2.5 are in the branch flint2.5-version.
+* The current (as of 2023-06-01) version of flint is flint3.0 and is **not backwards compatible** with the version that was compiled with flint2.5. 
+We are currently working to rewrite all the programs in the master branch to be compatible with flint3.0.  Here is what has been done as of 2023-06-01.
+** You may compile GQHR.cpp and GQTp2HR.cpp. (These have been updated to be compatible with flint3.0)
+** Example compile command: g++ -o GQHR -I/usr/local/include/flint  -L/usr/local/lib/ -lflint -lgmp GQHR.cpp
+** The main incompatibility that needs to be updated is that now arithmetic modulo integers require a context object of type fmpz_mod_ctx_t.
+** The other programs (BPHR, BPHRTp2, TwHR, GritMonHR) have not yet been updated. These were not required for calculating the eigenvalues reported in the paper "EIGENVALUES AND CONGRUENCES FOR THE WEIGHT 3
+PARAMODULAR NONLIFTS OF LEVELS 61, 73, AND 79".  That is, the programs that were used in that paper have been updated for flint3.0.
+** Technical note: MySeriesTruncMod.cpp was the other file that needed updated.
 
 ## Notes
 
